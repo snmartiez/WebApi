@@ -11,15 +11,36 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Users.belongsTo(models.Persona, { foreignKey: 'id_persona' });  // Referencia correcta a Persona
+      Users.belongsTo(models.Persona, { foreignKey: 'id_persona', as: 'usuario' });  // Referencia correcta a Persona
       Users.belongsTo(models.Roles, { foreignKey: 'id_rol' });        // Referencia correcta a Roles
     }
   }
   Users.init({
-    id_persona: DataTypes.INTEGER,
-    id_rol: DataTypes.INTEGER,
-    username: DataTypes.STRING,
-    password: DataTypes.STRING
+    id_persona: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Persona', // nombre del modelo
+        key: 'id'         // clave primaria en Persona
+      },
+      allowNull: false
+    },
+    id_rol: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Roles',  // nombre del modelo Roles
+        key: 'id'        // clave primaria en Roles
+      },
+      allowNull: false
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true  // El nombre de usuario debe ser único
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Users',

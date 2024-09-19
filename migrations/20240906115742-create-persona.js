@@ -10,7 +10,9 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       documento: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
       },
       nombres: {
         type: Sequelize.STRING

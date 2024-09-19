@@ -11,11 +11,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Profesor.belongsTo(models.Persona, { foreignKey: 'id_persona', as: 'persona' });
     }
   }
   Profesor.init({
-    id_persona: DataTypes.INTEGER,
-    documento: DataTypes.STRING
+    id_persona:{
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Persona', // nombre del modelo
+        key: 'id'         // clave primaria en Persona
+      },
+      allowNull: false
+    },
+    documento: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    }
   }, {
     sequelize,
     modelName: 'Profesor',
