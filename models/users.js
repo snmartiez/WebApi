@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Users.belongsTo(models.Persona, { foreignKey: 'id_persona', as: 'usuario' });  // Referencia correcta a Persona
-      Users.belongsTo(models.Roles, { foreignKey: 'id_rol' });        // Referencia correcta a Roles
+      Users.belongsTo(models.Roles, { foreignKey: 'id_rol', as: 'role' });        // Referencia correcta a Roles
     }
   }
   Users.init({
