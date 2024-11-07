@@ -112,13 +112,13 @@ exports.editarProfesor = async (req, res) => {
 
   try {
     // Buscar al profesor por ID
-    const profesor = await Profesor.findByPk(id, { include: Persona });
+    const profesor = await Profesor.findByPk(id, { include: [{model: Persona, as: 'persona'}]});
     if (!profesor) {
       return res.status(404).json({ message: "Profesor no encontrado" });
     }
 
     // Actualizar la información de la persona
-    await profesor.Persona.update({
+    await profesor.persona.update({
       documento,
       nombres,
       apellidos,
@@ -140,8 +140,9 @@ exports.editarProfesor = async (req, res) => {
         password: newPassword
       });
     }
-
+      
     res.status(200).json({ message: "Profesor actualizado exitosamente", profesor });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error al editar el profesor", error: error.message });

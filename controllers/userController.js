@@ -145,7 +145,7 @@ exports.listarUsuarios = async (req, res) => {
       // Buscar todos los usuarios e incluir la información de persona y rol
       const usuarios = await Users.findAll({
           include: [
-              { model: Persona, as: 'persona' },
+              { model: Persona, as: 'usuario' },
               { model: Roles, as: 'role' }
           ]
       });
